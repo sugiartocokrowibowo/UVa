@@ -7,7 +7,7 @@ typedef vector<int> vi;
 typedef vector<vi> vvi;
 
 vvi v,dp;
-vi arr,tmp,len;
+vi arr,tmp;
 int n;
 
 void precompute(){
@@ -20,7 +20,7 @@ void precompute(){
 	}
 }
 int maxSubarray(int a,int b){
-	arr.resize(n);tmp.resize(n);len.resize(n);
+	arr.resize(n);tmp.resize(n);
 	int sum=0;
 	int flag=0;
 	for(int i=0;i<n;i++){
@@ -29,25 +29,26 @@ int maxSubarray(int a,int b){
 		sum+=tmp[i];
 	}
 	arr[0]=tmp[0];
-	len[0]=1;
+
 	int maxi=arr[0];
 	for(int i=1;i<tmp.size();i++){
 		if(arr[i-1]>0)
-			arr[i]=arr[i-1]+tmp[i],len[i]=1+len[i-1];
+			arr[i]=arr[i-1]+tmp[i];
 		else
-			arr[i]=tmp[i],len[i]=1;
+			arr[i]=tmp[i];
 		maxi = max(maxi,arr[i]);
 	}
 	int mini=arr[0];
 	for(int i=1;i<tmp.size();i++){
 		if(arr[i-1]<=0)
-			arr[i]=arr[i-1]+tmp[i],len[i]=1+len[i-1];
+			arr[i]=arr[i-1]+tmp[i];
 		else
-			arr[i]=tmp[i],len[i]=1;
+			arr[i]=tmp[i];
 		mini = min(mini,arr[i]);
 	}
+	
 	if(flag)
-	return max(maxi,sum-mini);
+		return max(maxi,sum-mini);
 	else
 		return maxi;
 }
@@ -55,7 +56,7 @@ int main(){
 	int t;
 	icin(t);
 	while(t--){
-		v.clear();dp.clear();arr.clear();tmp.clear();len.clear();
+		v.clear();dp.clear();arr.clear();tmp.clear();
 		icin(n);
 		v.resize(2*n+1,vi(n));
 		for(int i=1;i<=n;i++)
